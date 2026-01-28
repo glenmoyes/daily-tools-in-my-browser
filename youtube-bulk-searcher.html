@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bulk YouTube Searcher</title>
+    <style>
+      /* General Styles */
+      body {
+        padding: 2rem;
+        font-size: 20px;
+      }
+      h2 {
+        margin-top: 3rem;
+      }
+
+      /* Forms */
+      textarea {
+        width: calc(100% - 1rem);
+      }
+      #generate-links {
+        margin-top: 1rem;
+        padding: 1rem;
+      }
+      #remove-track-numbers {
+        margin-left: 1.5rem;
+      }
+
+      /* Search Links */
+      #search-links-container {
+        margin-top: 1rem;
+      }
+      .search-link {
+        display: inline-block;
+        width: 50%;
+        padding: 0.5rem 0 0.5rem 0.75rem;
+        margin: 0 0 0 -0.75rem;
+        text-decoration: none;
+      }
+      .search-link:hover {
+        background: rgb(255, 247, 224);
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>YouTube Bulk Searcher</h1>
+
+    <h2>Paste Track List</h2>
+    <textarea
+      name="search-terms"
+      id="search-terms"
+      placeholder="Paste your search terms here, one search term per line"
+      rows="10"
+    ></textarea>
+    <button id="generate-links">Generate Search Links</button>
+    <input
+      type="checkbox"
+      name="remove-track-numbers"
+      id="remove-track-numbers"
+      checked
+    />
+    <label for="remove-track-numbers">Remove track numbers</label>
+
+    <div id="search-links-container"></div>
+
+    <h2>4k Downloader Scratchpad</h2>
+    <p>Paste YouTube URLs into this scratchpad.</p>
+    <textarea name="scratchpad" id="scratchpad" rows="10"></textarea>
+    <p>
+      Then paste the complete list into 4K Downloader with
+      <strong>Smart Mode on</strong> to download all tracks.
+    </p>
+
+    <h2>Check File Names</h2>
+    <p>Add missing artist names to file.</p>
+
+    <h2>PowerRenaming Downloaded Tracks</h2>
+    <p>Use the following to remove unwanted characters from the file names:</p>
+    <p>
+      TODO: Create a regex that can be used to find and replace the following
+      characters.
+    </p>
+    <pre>
+        `&` becomes and
+        `[~!@#$%^&*()_+=`{}\[\]|\\:;“’‘”\"'<>,.?/––—]` are deleted 
+</pre
+    >
+  </body>
+
+  <script>
+    const termsElement = document.getElementById("search-terms");
+    const generateButton = document.getElementById("generate-links");
+
+    generateButton.addEventListener("click", () => {
+      // Generate HTML (heading and links)
+      const linksContainer = document.getElementById("search-links-container");
+      // clear previous links
+      linksContainer.innerHTML = "";
+
+      let linkHeading = document.createElement("h2");
+      linkHeading.innerHTML = "YouTube Search Links";
+      linksContainer.appendChild(linkHeading);
+
+      // Separate each textarea line into individual search term array
+      const terms = termsElement.value.split("\n").map((term) => term.trim());
+
+      // Loop through each term and create a YouTube search link
+      for (let term of terms) {
+        if (term.length === 0) {
+          continue; // Skip empty lines
+        }
+        console.log(`Processing term:  ${term}`);
+
+        // if remove track numbers is checked, remove leading numbers and punctuation
+        const removeTrackNumbers = document.getElementById(
+          "remove-track-numbers",
+        ).checked;
+
+        if (removeTrackNumbers) {
+          /* Regex that removes track numbers in "##. " format : */
+          const regex = new RegExp(`^\\d{1,2}\\.\\s`);
+          term = term.replace(regex, "");
+          console.log(`Updated term:     ${term}`);
+        }
+
+        // Create a link element
+        const encodedTerm = encodeURIComponent(term).replace(/%20/g, "+");
+        const searchURL = `https://www.youtube.com/results?search_query=${encodedTerm}`;
+
+        const linkElement = document.createElement("a");
+        linkElement.className = "search-link";
+        linkElement.href = searchURL;
+        linkElement.target = "_blank";
+        linkElement.textContent = `${term}`;
+
+        // Append the link to the container
+        linksContainer.appendChild(linkElement);
+      }
+    });
+  </script>
+</html>
