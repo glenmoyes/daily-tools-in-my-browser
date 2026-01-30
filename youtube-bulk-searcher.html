@@ -56,6 +56,10 @@
 
   <body>
     <h1>YouTube Bulk Searcher</h1>
+    <p>
+      It takes about 25 minutes to do 20 songs from the list. Only do this once
+      per day.
+    </p>
 
     <h2>Track List</h2>
     <textarea
@@ -103,13 +107,15 @@
       style="display: flex; flex-direction: row; align-items: start; gap: 2rem"
     >
       <div class="box">
-        <p><code>&</code></p>
-        <p><code>and</code></p>
+        <p><code>( & )|\/</code></p>
+        <p>"<code> and </code>" (with spaces on both sides.)</p>
       </div>
       <div class="box">
         <p>
           <code
-            >\[|\~|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\_|\+|\=|\`|\{|\}|\\|\[|\\|\]|\||\\|\\|\:|\;|\“|\’|\‘|\”|\\|\"|\'|\<|\>|\,|\.|\?|\/|\–|\–|\—|\]</code
+            >( \[Monstercat Release\])|( \(Official
+            Audio\))|\[|\~|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\_|\+|\=|\`|\{|\}|\\|\[|\\|\]|\||\\|\\|\:|\;|\“|\’|\‘|\”|\\|\"|\'|\<|\>|\,|\.|\?|\/|\–|\–|\—|\]|(
+            $)</code
           >
         </p>
         <p><code> </code>&nbsp;&nbsp;(null string)</p>
