@@ -9,9 +9,20 @@
       body {
         padding: 2rem;
         font-size: 20px;
+        font-family: sans-serif;
       }
       h2 {
         margin-top: 3rem;
+      }
+      code {
+        background: rgb(247, 237, 218);
+        padding: 0 5px;
+        border: 1px solid orange;
+      }
+      .box {
+        background: #f0f0f0;
+        border: 1px solid #ccc;
+        padding: 1rem;
       }
 
       /* Forms */
@@ -46,7 +57,7 @@
   <body>
     <h1>YouTube Bulk Searcher</h1>
 
-    <h2>Paste Track List</h2>
+    <h2>Track List</h2>
     <textarea
       name="search-terms"
       id="search-terms"
@@ -64,28 +75,49 @@
 
     <div id="search-links-container"></div>
 
-    <h2>4k Downloader Scratchpad</h2>
+    <h2>4k Downloader List</h2>
     <p>Paste YouTube URLs into this scratchpad.</p>
-    <textarea name="scratchpad" id="scratchpad" rows="10"></textarea>
+    <textarea
+      name="scratchpad"
+      id="scratchpad"
+      rows="10"
+      placeholder="Download URL list, one search term per line"
+    ></textarea>
     <p>
       Then paste the complete list into 4K Downloader with
       <strong>Smart Mode on</strong> to download all tracks.
     </p>
 
     <h2>Check File Names</h2>
-    <p>Add missing artist names to file.</p>
+    <p>Add missing artist names to filename.</p>
 
     <h2>PowerRenaming Downloaded Tracks</h2>
-    <p>Use the following to remove unwanted characters from the file names:</p>
     <p>
-      TODO: Create a regex that can be used to find and replace the following
-      characters.
+      In PowerRename,
+      <code>Use regular expressions</code> to
+      <code>Match all occurances</code> and <code>Apply</code> to
+      <code>Filename only</code> with the following regex strings to remove
+      unwanted characters from the file names:
     </p>
-    <pre>
-        `&` becomes and
-        `[~!@#$%^&*()_+=`{}\[\]|\\:;“’‘”\"'<>,.?/––—]` are deleted 
-</pre
+    <div
+      style="display: flex; flex-direction: row; align-items: start; gap: 2rem"
     >
+      <div class="box">
+        <p><code>&</code></p>
+        <p><code>and</code></p>
+      </div>
+      <div class="box">
+        <p>
+          <code
+            >\[|\~|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\_|\+|\=|\`|\{|\}|\\|\[|\\|\]|\||\\|\\|\:|\;|\“|\’|\‘|\”|\\|\"|\'|\<|\>|\,|\.|\?|\/|\–|\–|\—|\]</code
+          >
+        </p>
+        <p><code> </code>&nbsp;&nbsp;(null string)</p>
+      </div>
+    </div>
+
+    <h2>ReplayGain</h2>
+    <p>Open the new files in foobar2000 to scan and apply ReplayGain.</p>
   </body>
 
   <script>
